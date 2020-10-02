@@ -253,7 +253,7 @@ if ( ! class_exists( 'Display_Posts_Remote' ) ) {
 			$url = trailingslashit( $atts['url'] ) . 'wp-json/wp/v2/posts';
 			$url = add_query_arg( '_embed' , '', $url );
 
-			if ( ! empty( $atts['category_id'] ) ) {
+			if ( ! empty( $atts['category_id'] ) && ( is_array( $atts['category_id'] ) || false !== filter_var( $atts['category_id'], FILTER_VALIDATE_BOOLEAN ) ) ) {
 
 				if ( is_array( $atts['category_id'] ) ) {
 
