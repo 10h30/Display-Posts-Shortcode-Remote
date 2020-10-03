@@ -319,7 +319,7 @@ if ( ! class_exists( 'Display_Posts_Remote' ) ) {
 		public function getDefaults() {
 
 			return array(
-				'category_id'           => 0,
+				'category_id'           => '',
 				'content_class'         => 'content',
 				'date_format'           => '(n/j/Y)',
 				'include_content'       => FALSE,
