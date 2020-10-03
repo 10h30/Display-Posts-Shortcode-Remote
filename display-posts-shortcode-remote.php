@@ -327,7 +327,7 @@ if ( ! class_exists( 'Display_Posts_Remote' ) ) {
 				'include_date_modified' => FALSE,
 				'include_link'          => TRUE,
 				'include_title'         => TRUE,
-				'image_size'            => 'thumbnail',
+				'image_size'            => '',
 				'no_posts_message'      => __( 'No posts to display.', 'display-posts-shortcode-remote' ),
 				'order'                 => 'desc',
 				'orderby'               => 'date',
@@ -464,30 +464,31 @@ if ( ! class_exists( 'Display_Posts_Remote' ) ) {
 
 					$title = '';
 				}
+				//print_r($post);
 
 				$imageAttributes = $self->getImageAttributes( $atts );
 
-				if( $atts['image_size'] && false !== filter_var( $atts['image_size'], FILTER_VALIDATE_BOOLEAN ) ) {
+				if ( ! empty ($atts['image_size'])) {
 
-					if ( $post->has_post_thumbnail() && $atts['include_link'] ) {
+				if ( $atts['image_size'] && $post->has_post_thumbnail() && $atts['include_link'] ) {
 
-						$image = '<a class="image" href="' . esc_url( $post->get_permalink() ) . '">' . $post->get_the_post_thumbnail( $atts['image_size'], $imageAttributes ) . '</a> ';
+					$image = '<a class="image" href="' . esc_url( $post->get_permalink() ) . '">' . $post->get_the_post_thumbnail( $atts['image_size'], $imageAttributes ) . '</a> ';
 
-					} elseif ( $post->has_post_thumbnail() ) {
+				} elseif ( $atts['image_size'] && $post->has_post_thumbnail() ) {
 
-						$image = '<span class="image">' . $post->get_the_post_thumbnail( $atts['image_size'], $imageAttributes ) . '</span> ';
+					$image = '<span class="image">' . $post->get_the_post_thumbnail( $atts['image_size'], $imageAttributes ) . '</span> ';
 
-					} elseif ( $post->has_featured_media() && $atts['include_link'] ) {
+				} elseif ( $post->has_featured_media() && $atts['include_link'] ) {
 
-						$image = '<a class="image" href="' . esc_url( $post->get_permalink() ) . '">' . $post->get_the_post_thumbnail( 'full', $imageAttributes ) . '</a> ';
+					$image = '<a class="image" href="' . esc_url( $post->get_permalink() ) . '">' . $post->get_the_post_thumbnail( 'full', $imageAttributes ) . '</a> ';
 
-					} elseif ( $post->has_featured_media() ) {
+				} elseif ( $post->has_featured_media() ) {
 
-						$image = '<span class="image">' . $post->get_the_post_thumbnail( 'full', $imageAttributes ) . '</span> ';
-
-					}
+					$image = '<span class="image">' . $post->get_the_post_thumbnail( 'full', $imageAttributes ) . '</span> ';
 
 				}
+			}
+
 
 				if ( $atts['include_date'] ) {
 
